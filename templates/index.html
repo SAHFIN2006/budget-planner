@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budget Distribution Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(90deg, #e0e7ef 0%, #b3c6e0 100%);
+            color: #1a2233;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100vw;
+            max-width: none;
+            margin: 0;
+            padding: 32px 0;
+            background: hsla(234, 100%, 90%, 0.95);
+            border-radius: 0;
+            box-shadow: none;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+            color: #0a1a2f;
+        }
+        h2 {
+            font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+            color: #0a1a2f;
+            margin-bottom: 13px;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        strong {
+            color: #0a1a2f;
+            text-shadow: none;
+            font-weight: 700;
+        }
+        ::placeholder {
+            color: #0a1a2f;
+            opacity: 1;
+            font-weight: bold;
+        }
+        .categories-section h2,
+        .category-form label,
+        .category-form input[type="text"],
+        .category-form input[type="number"],
+        .category-form .accent-btn,
+        .category-list li span {
+            color: #0a1a2f !important;
+            font-weight: bold;
+        }
+        .category-list li span {
+            font-size: 1.08rem;
+        }
+        .category-form .accent-btn {
+            padding: 14px 36px !important;
+            font-size: 1.12rem !important;
+            background: #0a1a2f !important;
+            color: #fff !important;
+            font-weight: bold !important;
+            border: 2px solid #0a1a2f !important;
+            border-radius: 7px !important;
+        }
+        .category-form .accent-btn:hover {
+            background: #1e3a5c !important;
+            color: #fff !important;
+        }
+        .primary-btn {
+            padding: 14px 36px !important;
+            font-size: 1.12rem !important;
+            background: #0a1a2f !important;
+            color: #fff !important;
+            font-weight: bold !important;
+            border: 2px solid #0a1a2f !important;
+            border-radius: 7px !important;
+        }
+        .primary-btn:hover {
+            background: #1e3a5c !important;
+            color: #fff !important;
+        }
+        input, select {
+            background: #fff;
+            color: #1a2233;
+            border: 1px solid #b3c6e0;
+            padding: 10px 12px;
+            border-radius: 7px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border: 1px solid #091268;
+            box-shadow: 0 0 6px #091268;
+        }
+        input[type="checkbox"] {
+            accent-color: #091268;
+            width: 16px;
+            height: 16px;
+            margin-right: 7px;
+        }
+        .btn,
+        .primary-btn,
+        .accent-btn,
+        .delete-btn {
+            background: #0a1a2f !important;
+            color: #fff !important;
+            font-weight: bold !important;
+            border: 2px solid #0a1a2f !important;
+            box-shadow: 0 2px 8px 0 rgba(10,26,47,0.08);
+        }
+        .btn:hover,
+        .primary-btn:hover,
+        .accent-btn:hover,
+        .delete-btn:hover {
+            background: #1e3a5c !important;
+            color: #fff !important;
+            border-color: #1e3a5c !important;
+        }
+        .delete-btn {
+            padding: 4px 12px;
+            font-size: 1.1rem;
+            margin-left: 8px;
+        }
+        .summary {
+            margin-top: 18px;
+            background: #f7faff;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 1.08rem;
+            color: #0a1a2f;
+        }
+        .amount {
+            font-weight: 600;
+            color: #0a1a2f;
+        }
+        .no-result {
+            color: #888;
+            font-style: italic;
+            margin-top: 18px;
+        }
+        .category-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #e0e7ef;
+            font-size: 1.05rem;
+        }
+        .category-list li:last-child {
+            border-bottom: none;
+        }
+        .recurring {
+            color: #0a1a2f;
+            font-size: 1.1em;
+            margin-left: 4px;
+        }
+        .recurring-label {
+            font-size: 0.98rem;
+            color: #1a2233;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        @media (max-width: 1100px) {
+            .main-row {
+                flex-direction: column;
+                gap: 24px;
+                width: 100vw;
+                padding: 0 2vw;
+            }
+            .section {
+                max-width: 100%;
+            }
+        }
+        .footer {
+            width: 100vw;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-size: 1.08rem;
+            color: #0a1a2f;
+            font-weight: bold;
+            background: transparent;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+            letter-spacing: 1px;
+        }
+        body { padding-bottom: 60px; }
+        .main-row {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            justify-content: stretch;
+            align-items: stretch;
+            width: 100vw;
+            box-sizing: border-box;
+            padding: 0 2vw;
+        }
+        .section {
+            background: #f7faff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px 0 rgba(30,40,60,0.07);
+            padding: 28px 20px 20px 20px;
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: none;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Budget  Distribution Manager</h1>
+        <div class="main-row">
+            <!-- Income Input Section (Left) -->
+            <div class="section income-section">
+                <h2>Enter Amount</h2>
+                <form method="POST" class="income-form">
+                    <input type="number" name="income" required class="input-field">
+                    <select name="month" class="input-field">
+                        {% for month in months %}
+                        <option value="{{ month }}" {% if month == selected_month %}selected{% endif %}>{{ month }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" name="year" value="{{ selected_year }}" class="input-field" min="2000" max="2100">
+                    <button type="submit" class="btn primary-btn">Submit</button>
+                </form>
+            </div>
+
+            <!-- Categories Section (Middle) -->
+            <div class="section categories-section">
+                <h2>Categories</h2>
+                <form method="POST" class="category-form">
+                    <input type="text" name="category_name" placeholder="Enter category name" class="input-field" required>
+                    <input type="number" name="category_percent" placeholder="Enter %" class="input-field" min="0" max="100" step="0.01" required>
+                    <label class="recurring-label">
+                        <input type="checkbox" name="category_recurring"> Recurring
+                    </label>
+                    <button type="submit" name="add_category" class="btn accent-btn">Add</button>
+                </form>
+                <ul class="category-list">
+                    {% for cat in categories %}
+                    <li>
+                        <span>{{ cat.name }} ({{ (cat.percent * 100)|round(2) }}%) {% if cat.recurring %}<span class="recurring">&#x21bb;</span>{% endif %}</span>
+                        <form method="POST" action="{{ url_for('delete_category', idx=loop.index0) }}" style="display:inline;">
+                            <button type="submit" class="btn delete-btn">&times;</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Results Section (Right) -->
+            <div class="section results-section">
+                <h2>Results</h2>
+                {% if result %}
+                <ul class="results-list">
+                    {% for expense in result.expenses %}
+                    <li>{{ expense.name }}: <span class="amount">{{ expense.amount|round(2) }}</span> {% if expense.recurring %}<span class="recurring">&#x21bb;</span>{% endif %}</li>
+                    {% endfor %}
+                </ul>
+                <div class="summary">
+                    <div>Total Deposit (month): <span class="amount">{{ result.total_deposit|round(2) }} BDT </span></div>
+                    <div>Potential Saving (Year): <span class="amount">{{ result.potential_saving|round(2) }} BDT </span></div>
+                    <div>Potential Investment (70% of the year): <span class="amount">{{ result.potential_investment|round(2) }} BDT </span></div>
+                    <div>Suraksha Deposit (30% of the year): <span class="amount">{{ result.suraksha_deposit|round(2) }} BDT </span></div>
+                </div>
+                {% else %}
+                <p class="no-result">Enter your income to see results.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        © 2025 | Budget Planner — Powered by SaPPHIrE TEcH
+    </footer>
+</body>
+</html>
