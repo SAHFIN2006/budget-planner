@@ -227,7 +227,7 @@
         <div class="main-row">
             <!-- Income Input Section (Left) -->
             <div class="section income-section">
-                <h2>Enter Amount</h2>
+                <h2>ENTER AMOUNT</h2>
                 <form method="POST" class="income-form">
                     <input type="number" name="income" required class="input-field">
                     <select name="month" class="input-field">
@@ -242,7 +242,7 @@
 
             <!-- Categories Section (Middle) -->
             <div class="section categories-section">
-                <h2>Categories</h2>
+                <h2>CATEGORIES</h2>
                 <form method="POST" class="category-form">
                     <input type="text" name="category_name" placeholder="Enter category name" class="input-field" required>
                     <input type="number" name="category_percent" placeholder="Enter %" class="input-field" min="0" max="100" step="0.01" required>
@@ -265,7 +265,7 @@
 
             <!-- Results Section (Right) -->
             <div class="section results-section">
-                <h2>Results</h2>
+                <h2>RESULTS</h2>
                 {% if result %}
                 <ul class="results-list">
                     {% for expense in result.expenses %}
@@ -279,7 +279,7 @@
                     <div>Suraksha Deposit (30% of the year): <span class="amount">{{ result.suraksha_deposit|round(2) }} BDT </span></div>
                 </div>
                 {% else %}
-                <p class="no-result">Enter your income to see results.</p>
+                <p class="no-result">Enter your amount to see results.</p>
                 {% endif %}
             </div>
         </div>
